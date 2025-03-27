@@ -11,12 +11,16 @@ import Foundation
 class SuperVipPromoViewModel: ObservableObject {
 
     @Published var modelPublisher: SuperVipPromoModel?
+    @Published var isConnectedState: Bool = false
 
     private var cancellables = Set<AnyCancellable>()
 
-
     func sendDataToView() {
         modelPublisher = mockData
+    }
+    
+    func changeState() {
+        isConnectedState.toggle()
     }
 }
 

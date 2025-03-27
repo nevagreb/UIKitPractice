@@ -72,15 +72,7 @@ final class SuperVipPromoViewController: UIViewController {
         return label
     }()
 
-    @Autolayout private var connectButton: UIButton = {
-        let button = UIButton()
-        button.layer.cornerRadius = 24
-        button.backgroundColor = .black
-        button.setTitleColor(.white, for: .normal)
-        button.setTitleColor(.black, for: .highlighted)
-        button.titleLabel?.font = .systemFont(ofSize: 16, weight: .bold)
-        return button
-    }()
+    @Autolayout private var connectButtonView = SuperVipPromoConnectButtonView()
 
     @Autolayout private var bottomButton: UIButton = {
         let button = UIButton()
@@ -108,11 +100,11 @@ final class SuperVipPromoViewController: UIViewController {
             detailsButton,
             bannerContainerView,
             cashbackLabel,
-            connectButton,
+            connectButtonView,
             bottomButton
         ])
 
-
+        
         let detailsButtonAttributes: [NSAttributedString.Key: Any] = [
             .font: UIFont.systemFont(ofSize: 16, weight: .regular),
             .foregroundColor: Constants.detailsButtonColor,
@@ -123,6 +115,7 @@ final class SuperVipPromoViewController: UIViewController {
             attributes: detailsButtonAttributes
         )
         detailsButton.setAttributedTitle(attributedString, for: .normal)
+        connectButtonView.delegate = self
 
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -153,12 +146,12 @@ final class SuperVipPromoViewController: UIViewController {
             cashbackLabel.heightAnchor.constraint(equalToConstant: 24),
             cashbackLabel.widthAnchor.constraint(equalToConstant: 200),
 
-            connectButton.topAnchor.constraint(equalTo: cashbackLabel.bottomAnchor, constant: 8),
-            connectButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            connectButton.heightAnchor.constraint(equalToConstant: 64),
-            connectButton.widthAnchor.constraint(equalToConstant: Constants.viewWidth),
+            connectButtonView.topAnchor.constraint(equalTo: cashbackLabel.bottomAnchor, constant: 8),
+            connectButtonView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            connectButtonView.heightAnchor.constraint(equalToConstant: 64),
+            connectButtonView.widthAnchor.constraint(equalToConstant: Constants.viewWidth),
 
-            bottomButton.topAnchor.constraint(equalTo: connectButton.bottomAnchor, constant: 12),
+            bottomButton.topAnchor.constraint(equalTo: connectButtonView.bottomAnchor, constant: 12),
             bottomButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             bottomButton.widthAnchor.constraint(equalToConstant: Constants.viewWidth),
             bottomButton.heightAnchor.constraint(equalToConstant: 64)
@@ -168,20 +161,44 @@ final class SuperVipPromoViewController: UIViewController {
     }
 }
 
+extension SuperVipPromoViewController: SuperViewPromoDelegate {
+    func connectButtonStateUpdate() {
+        viewModel.changeState()
+    }
+}
+
 // MARK: Bind publishers
 
 private extension SuperVipPromoViewController {
     private func bindPublishers() {
-        viewModel.$modelPublisher
+        Publishers.CombineLatest(viewModel.$modelPublisher, viewModel.$isConnectedState)
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] model in
+            .sink { [weak self] model, isConnectedState in
                 guard let self = self else { return }
-                imageView.image = UIImage(named: model?.imageName ?? "")
-                mainLabel.text = model?.mainLabelText
-                descriptionLabel.text = model?.descriptionLabelText
-                cashbackLabel.text = model?.cashbackLabelText
-                bottomButton.setTitle(model?.bottomButtonText, for: .normal)
-                connectButton.setTitle(model?.connectButtonText, for: .normal)
+                
+                if let model = model {
+                    imageView.image = UIImage(named: model.imageName)
+                    mainLabel.text = model.mainLabelText
+                    descriptionLabel.text = model.descriptionLabelText
+                    cashbackLabel.text = model.cashbackLabelText
+                    bottomButton.setTitle(model.bottomButtonText, for: .normal)
+                    
+                    let title = isConnectedState ? "Изменить сейчас" : model.connectButtonText
+                    connectButtonView
+                        .setTitle(title)
+                }
+        
+                self.topConstraint?.isActive = false
+                let padding = isConnectedState ? 8.0 : 60.0
+                topConstraint = cashbackLabel.topAnchor.constraint(equalTo: bannerContainerView.bottomAnchor, constant: padding)
+                topConstraint?.isActive = true
+                
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.view.layoutIfNeeded()
+                    self.bottomButton.alpha = isConnectedState ? 1.0 : 0.0
+                }) { _ in
+                    self.bottomButton.isHidden = !isConnectedState
+                }
             }
             .store(in: &cancellables)
     }

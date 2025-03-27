@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6378DA242D8DEBFE000777E9 /* SuperVipPromoConnectButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6378DA232D8DEBFE000777E9 /* SuperVipPromoConnectButtonView.swift */; };
 		9E1D697C2B18691C004DCA99 /* Simulator Screenshot - iPhone 15 Pro - 2023-11-30 at 09.48.51.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E1D697A2B18691C004DCA99 /* Simulator Screenshot - iPhone 15 Pro - 2023-11-30 at 09.48.51.png */; };
 		9E1D697D2B18691C004DCA99 /* Simulator Screenshot - iPhone 15 Pro - 2023-11-30 at 09.52.22.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E1D697B2B18691C004DCA99 /* Simulator Screenshot - iPhone 15 Pro - 2023-11-30 at 09.52.22.png */; };
 		9E1D697F2B186966004DCA99 /* Simulator Screenshot - iPhone 15 Pro - 2023-11-30 at 09.55.22.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E1D697E2B186966004DCA99 /* Simulator Screenshot - iPhone 15 Pro - 2023-11-30 at 09.55.22.png */; };
@@ -26,6 +27,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6378DA232D8DEBFE000777E9 /* SuperVipPromoConnectButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuperVipPromoConnectButtonView.swift; sourceTree = "<group>"; };
 		9E1D697A2B18691C004DCA99 /* Simulator Screenshot - iPhone 15 Pro - 2023-11-30 at 09.48.51.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Simulator Screenshot - iPhone 15 Pro - 2023-11-30 at 09.48.51.png"; sourceTree = "<group>"; };
 		9E1D697B2B18691C004DCA99 /* Simulator Screenshot - iPhone 15 Pro - 2023-11-30 at 09.52.22.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Simulator Screenshot - iPhone 15 Pro - 2023-11-30 at 09.52.22.png"; sourceTree = "<group>"; };
 		9E1D697E2B186966004DCA99 /* Simulator Screenshot - iPhone 15 Pro - 2023-11-30 at 09.55.22.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Simulator Screenshot - iPhone 15 Pro - 2023-11-30 at 09.55.22.png"; sourceTree = "<group>"; };
@@ -75,6 +77,7 @@
 			children = (
 				9E1D69A42B188FF1004DCA99 /* ProblemDescription */,
 				9E1D69922B187242004DCA99 /* SuperVipPromoViewController.swift */,
+				6378DA232D8DEBFE000777E9 /* SuperVipPromoConnectButtonView.swift */,
 				9E1D69942B18724D004DCA99 /* SuperVipPromoViewModel.swift */,
 				9E1D69902B18723B004DCA99 /* SuperVipPromoModel.swift */,
 				9E1D698E2B187224004DCA99 /* TestVc.swift */,
@@ -227,6 +230,7 @@
 				9EBFABCC2B185A03008671E8 /* EqualSquaresViewController.swift in Sources */,
 				9EBFABDF2B185BBA008671E8 /* UIView+AddSubviews.swift in Sources */,
 				9E1D69932B187242004DCA99 /* SuperVipPromoViewController.swift in Sources */,
+				6378DA242D8DEBFE000777E9 /* SuperVipPromoConnectButtonView.swift in Sources */,
 				9EBFABC82B185A03008671E8 /* AppDelegate.swift in Sources */,
 				9E1D69952B18724D004DCA99 /* SuperVipPromoViewModel.swift in Sources */,
 				9EBFABDD2B185A84008671E8 /* Autolayout.swift in Sources */,
